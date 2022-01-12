@@ -1,0 +1,8 @@
+.meetupsList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 45%;
+    margin: 4rem auto;
+}

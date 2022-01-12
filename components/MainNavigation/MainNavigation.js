@@ -7,8 +7,8 @@ const MainNavigation = (props) => {
         <h1>React Meetups</h1>
         <nav>
             <ul>
-                <li><Link href="all-meetups">All Meetups</Link></li>
-                <li><Link href="add-new-meetups">Add New Meetups</Link></li>
+                <li><Link href="/">All Meetups</Link></li>
+                <li><Link href="new-meetups">Add New Meetups</Link></li>
             </ul>
         </nav>
     </header>

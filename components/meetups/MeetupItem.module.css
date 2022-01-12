@@ -1,0 +1,37 @@
+.meetupItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.meetupItem img {
+    width: 100%;
+    height: auto;
+}
+
+.meetupItem h3 {
+    margin: 0 0 3rem 0;
+}
+
+.meetupItem button {
+    cursor: pointer;
+    color: #601a28;
+    background-color: #fff;
+    border-color: white;
+    padding: 1rem 4rem;
+    border: 1px solid #601a28;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+    font-weight: 900;
+}
+
+.meetupItem button:hover {
+    background-color: rgb(250, 198, 174);
+    transition: 0.5s ease;
+}
+
