@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10rem;
+    background-color: #371921;
+    color: white;
+}
+
+.header ul {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+}
+
+.header li {
+    font-size: 1.4rem;
+    padding: 1rem;
+    color: #b5828f;
+}
+
+.header li:hover {
+    transition: 0.5s ease;
+    color: white;
+}
