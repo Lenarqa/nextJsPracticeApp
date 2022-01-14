@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
+import { MongoClient, ObjectId } from "mongodb";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 
 // import classes from './MeetupDetails.module.css';
@@ -18,39 +19,55 @@ const MeetupDetails = (props) => {
   );
 };
 
-export async function getStaticPaths () {
+export async function getStaticPaths() {
+  const client = await MongoClient.connect(
+    `mongodb+srv://Lenar:${process.env.MONGO_DB_PASSWORD}@cluster0.vdasz.mongodb.net/meetups?retryWrites=true&w=majority`
+  );
+
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+
+  const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray();
+
+  client.close();
+
   return {
     fallback: false,
-    paths: [
-      {
-        params: {
-          meetupId: "m1",
-        },
-      },
-      {
-        params: {
-          meetupId: "m2",
-        },
-      },
-    ],
-  }
+    paths: meetups.map((meetup) => ({
+      params: { meetupId: meetup._id.toString() },
+    })),
+  };
 }
 
 export async function getStaticProps(context) {
   const meetupId = context.params.meetupId;
-  console.log(meetupId);
+
+  const client = await MongoClient.connect(
+    `mongodb+srv://Lenar:${process.env.MONGO_DB_PASSWORD}@cluster0.vdasz.mongodb.net/meetups?retryWrites=true&w=majority`
+  );
+
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+
+  const selectedMeetup = await meetupsCollection.findOne({
+    _id: ObjectId(meetupId),
+  });
+
+  client.close();
 
   return {
     props: {
       meetupData: {
-        id: meetupId,
-        image: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
-        title: "Some title",
-        address: "some address",
-        description: "some description",
-      }
-    }
-  }
+        id: selectedMeetup._id.toString(),
+        title: selectedMeetup.title,
+        image: selectedMeetup.image,
+        address: selectedMeetup.address,
+        description: selectedMeetup.description,
+      },
+    },
+  };
 }
 
 export default MeetupDetails;
