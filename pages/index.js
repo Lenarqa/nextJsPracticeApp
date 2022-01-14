@@ -1,8 +1,18 @@
+import { Fragment } from "react";
 import { MongoClient } from "mongodb";
 import MeetupsList from "../components/meetups/MeetupsList";
+import Head from "next/head";
 
 const HomePage = (props) => {
-  return <MeetupsList meetups={props.meetups} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>React Meetups</title>
+        <meta name="description" content="All about React meetups" />
+      </Head>
+      <MeetupsList meetups={props.meetups} />;
+    </Fragment>
+  );
 };
 
 // export async function getServerSideProps(context) {
@@ -16,10 +26,9 @@ const HomePage = (props) => {
 //   }
 // }
 
-export async function getStaticProps () {
-
+export async function getStaticProps() {
   const client = await MongoClient.connect(
-    `mongodb+srv://Lenar:${process.env.MONGO_DB_PASSWORD}@cluster0.vdasz.mongodb.net/meetups?retryWrites=true&w=majority`
+    `mongodb+srv://Lenar:wear30469@cluster0.vdasz.mongodb.net/meetups?retryWrites=true&w=majority`
   );
 
   const db = client.db();
@@ -32,7 +41,7 @@ export async function getStaticProps () {
 
   return {
     props: {
-      meetups: meetups.map(meetup => ({
+      meetups: meetups.map((meetup) => ({
         title: meetup.title,
         image: meetup.image,
         address: meetup.address,
@@ -40,7 +49,7 @@ export async function getStaticProps () {
       })),
     },
     revalidate: 10,
-  }
+  };
 }
 
 export default HomePage;
