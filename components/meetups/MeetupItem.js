@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 const MeetupItem = (props) => {
   const router = useRouter();
-  const { id, url, title, address } = props.meetup;
+  const { id, image, title, address } = props.meetup;
   
   const showDetailHandler = () => {
     router.push(`/${id}`);
@@ -13,7 +13,7 @@ const MeetupItem = (props) => {
 
   return (
     <div className={classes.meetupItem}>
-      <img src={url} alt="meetup img" />
+      <img src={image} alt="meetup img" />
       <h2>{title}</h2>
       <h3>{address}</h3>
       <button onClick={showDetailHandler}>Show Details</button>
