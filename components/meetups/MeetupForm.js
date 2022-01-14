@@ -21,17 +21,15 @@ const MeetupForm = (props) => {
     }
 
     const meetupData = {
-      title,
-      img,
-      address,
-      description
-    }
+      title: title,
+      image: img,
+      address: address,
+      description: description,
+    };
+
+    console.log(meetupData)
 
     props.addNewMeetup(meetupData);
-
-    console.log(
-      `title = ${title}; img = ${img}; address = ${address}; description = ${description}`
-    );
   };
 
   return (
